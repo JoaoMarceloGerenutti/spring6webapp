@@ -14,15 +14,18 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Author {
+public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String firstName;
-    private String lastName;
+    private String publisherName;
+    private String address;
+    private String city;
+    private String state;
+    private String zip;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "publishers")
     private Set<Book> books = new HashSet<>();
 }
