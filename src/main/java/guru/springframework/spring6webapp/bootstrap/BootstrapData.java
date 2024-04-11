@@ -27,10 +27,12 @@ public class BootstrapData implements CommandLineRunner {
         Author author = new Author();
         author.setFirstName("Eric");
         author.setLastName("Evans");
+        Author firstAuthorSaved = authorRepository.save(author);
 
         Book book = new Book();
         book.setTitle("Domain Driven Design");
         book.setIsbn("123456");
+        Book firstBookSaved = bookRepository.save(book);
 
         Publisher publisher = new Publisher();
         publisher.setPublisherName("Arqueiro");
@@ -38,41 +40,33 @@ public class BootstrapData implements CommandLineRunner {
         publisher.setCity("Winter Haven");
         publisher.setState("FL");
         publisher.setZip("33882");
-
-        Author firstAuthorSaved = authorRepository.save(author);
         Publisher firstPublisherSaved = publisherRepository.save(publisher);
-        Book firstBookSaved = bookRepository.save(book);
 
         author = new Author();
         author.setFirstName("Rod");
         author.setLastName("Johnson");
+        Author secondAuthorSaved = authorRepository.save(author);
 
         book = new Book();
         book.setTitle("J2EE Development without EJB");
         book.setIsbn("54757585");
-
-        publisher = new Publisher();
-        publisher.setPublisherName("Pipoca");
-        publisher.setAddress("Toussauds Park 153 North 2nd Street");
-        publisher.setCity("Tarzan");
-        publisher.setState("TX");
-        publisher.setZip("79783");
-
-        Author secondAuthorSaved = authorRepository.save(author);
-        Publisher secondPublisherSaved = publisherRepository.save(publisher);
         Book secondBookSaved = bookRepository.save(book);
 
+        firstBookSaved.setPublisher(firstPublisherSaved);
+        secondBookSaved.setPublisher(firstPublisherSaved);
+
         firstAuthorSaved.getBooks().add(firstBookSaved);
-        firstPublisherSaved.getBooks().add(firstBookSaved);
         secondAuthorSaved.getBooks().add(secondBookSaved);
-        secondPublisherSaved.getBooks().add(secondBookSaved);
 
         authorRepository.save(firstAuthorSaved);
         authorRepository.save(secondAuthorSaved);
 
+        bookRepository.save(firstBookSaved);
+        bookRepository.save(secondBookSaved);
+
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
-        System.out.println("Publisher Count: " + publisherRepository.count());
         System.out.println("Book Count: " + bookRepository.count());
+        System.out.println("Publisher Count: " + publisherRepository.count());
     }
 }

@@ -28,8 +28,6 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "publisher_id"))
-    private Set<Publisher> publishers = new HashSet<>();
+    @ManyToOne
+    private Publisher publisher;
 }
